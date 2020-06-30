@@ -1,0 +1,22 @@
+{
+  "name": "portal",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "export": "nuxt export",
+    "serve": "nuxt serve"
+  },
+  "dependencies": {
+    "@nuxtjs/axios": "^5.11.0",
+    "nuxt": "^2.13.0",
+    "nuxt-i18n": "^6.12.2",
+    "vue-moment": "^4.1.0"
+  },
+  "devDependencies": {
+    "@nuxtjs/vuetify": "^1.11.2",
+    "material-design-icons-iconfont": "^5.0.1"
+  }
+}
