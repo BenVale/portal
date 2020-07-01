@@ -33,5 +33,13 @@ export default {
     validUntil: 'Valid until',
     claimedOn: 'Claimed on',
     maintenanceUntil: 'Maintenance valid until' 
-  }
+  },
+  error: {
+    notFound404: '404 Not Found',
+    title404: 'This page doesn’t exist',
+    body404: 'The link you clicked on may be broken or no longer exist.',
+    link: 'Home',
+    other: 'An error occurred',    
+  },
+  
 }
