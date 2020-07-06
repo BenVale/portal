@@ -59,6 +59,9 @@ export default {
     '@nuxtjs/axios',
     'nuxt-i18n',    
   ],
+  serverMiddleware: [
+    { path: '/api/users', handler: '~/api/users.js' },
+  ],
   /*
   ** Axios module configuration
   ** See https://axios.nuxtjs.org/options
