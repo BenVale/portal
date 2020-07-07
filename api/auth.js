@@ -44,7 +44,6 @@ app.post('/login', async (req, res, next) => {
   try {
     user = await new Promise((resolve, reject) => auth.authenticate(username, password, (err, user) => err != null ? reject(err) : resolve(user)));
   } catch(err){
-    auth.close();
     res.status(401).send(err);
     return;
   }
