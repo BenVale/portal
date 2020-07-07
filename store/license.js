@@ -9,9 +9,9 @@ export const mutations = {
 }
 
 export const actions = {
-  load: async ({commit}, data) => {
+  async load ({commit}, data) {
     // TODO: api call to get licenses
-    // TODO: var items = await axios.get(data.url);    
+    // TODO: var items = await this.$axios.get(data.url);    
     // TODO: remove this demo code
     await new Promise(resolve => setTimeout(resolve, 1000)); 
     var items = [

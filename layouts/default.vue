@@ -40,10 +40,22 @@
       <v-container fluid>
         <v-row no-gutters>
           <v-col align="end">
-            <v-btn text small>
-              <v-icon small class="mr-1">person</v-icon>
-              <div>{{user}}</div>
-            </v-btn>                  
+            <v-menu offset-y v-if="user != null">
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn text small v-bind="attrs" v-on="on">
+                  <v-icon small class="mr-1">person</v-icon>
+                  <div>{{user.name}}</div>
+                </v-btn>                                  
+              </template>
+              <v-list dense >
+                <v-list-item @click="logout">
+                  <v-list-item-icon>
+                    <v-icon>logout</v-icon>
+                  </v-list-item-icon>
+                  <v-list-item-title>{{$t('menu.logout')}}</v-list-item-title>
+                </v-list-item>
+              </v-list>
+            </v-menu>            
           </v-col>
         </v-row>
         <v-row>
@@ -68,12 +80,18 @@ export default {
         { title: this.$t('menu.contracts'), icon: 'description', to: '/contracts' },
         { title: this.$t('menu.downloads'), icon: 'get_app', to: '/downloads' },
       ],
-      mini: true,
+      mini: true,      
     }
   },
   computed: {
     user: function(){
-      return this.$store.state.user.name;
+      return this.$auth.user;
+    }
+  },
+  methods: {
+    logout: async function(){
+      await this.$auth.logout();
+      this.$router.push('/login');
     }
   }
 }

@@ -7,7 +7,8 @@ export default {
     licenses: 'Licenses',
     contracts: 'Contracts',
     downloads: 'Downloads',
-    collapse: 'Collapse'
+    collapse: 'Collapse',
+    logout: 'Logout'
   },
   dashboard: {
     pageCount: 'Page count',
@@ -20,6 +21,17 @@ export default {
     search: 'Search',
     cancel: 'Cancel',
     ok: 'Ok'
+  },
+  rule: {
+    required: 'Required'
+  },
+  login: {
+    username: 'Username',
+    password: 'Password',
+    login: 'Login',
+    tocMessage: 'By continuing, you agree to the {0}',
+    toc: 'terms & conditions',
+    invalidUser: 'Invalid username or password'
   },
   license: {
     issuedBy: 'Issue by',

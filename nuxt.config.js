@@ -57,16 +57,37 @@ export default {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
-    'nuxt-i18n',    
+    'nuxt-i18n',   
+    '@nuxtjs/auth' 
   ],
   serverMiddleware: [
     { path: '/api/users', handler: '~/api/users.js' },
+    { path: '/api/auth', handler: '~/api/auth.js' },
   ],
   /*
   ** Axios module configuration
   ** See https://axios.nuxtjs.org/options
   */
-  axios: {},
+  axios: {
+    proxy: true
+  },
+  proxy: {
+    '/api': 'http://localhost:3000'
+  },
+  auth: {
+    strategies: {
+      local: {
+        endpoints: {
+          login: { url: '/api/auth/login', method: 'post', propertyName: 'token.accessToken' },
+          logout: { url: '/api/auth/logout', method: 'post' },
+          user: { url: '/api/auth/user', method: 'get', propertyName: 'user' }
+        },        
+      }
+    }
+  },
+  router: {
+    middleware: ['auth']
+  },
   i18n: {
     // locales: ['en', 'fr', 'es'],
     locales: [
