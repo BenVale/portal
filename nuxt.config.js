@@ -61,8 +61,8 @@ export default {
     '@nuxtjs/auth' 
   ],
   serverMiddleware: [
-    { path: '/api/users', handler: '~/api/users.js' },
-    { path: '/api/auth', handler: '~/api/auth.js' },
+    { path: '/api', handler: '~/api/index.js' },
+    // '~/api/index.js'
   ],
   /*
   ** Axios module configuration
