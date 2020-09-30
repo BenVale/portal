@@ -1,55 +1,75 @@
 <template>
-  <v-container fluid class="pa-0">
-    <v-row v-for="(row, rowIdx) in container.rows" :key="rowIdx" :style="'height: ' + row.height">
-      <v-col v-for="(col, colIdx) in row.cols" :key="colIdx">
-        <v-card class="fill-height" :to="col.to" hover>
-          <v-card-title>
-            <v-icon class="mr-2">{{col.icon}}</v-icon>
-            {{col.title}}
-          </v-card-title>
-        </v-card>
+  <v-container fluid class="pa-0 px-4">
+    <v-row no-gutters style="color: var(--v-text-base)">
+      <v-col v-if="installation != null">
+        <h3 class="font-weight-medium" style="line-height: 1">{{installation.title}}<v-icon small>arrow_drop_down</v-icon></h3>        
+        <div class="caption font-weight-light">{{$t('dashboard.licenseExpires', [$moment(installation.expires).format("LL")])}}</div>
       </v-col>
-    </v-row>  
+      <v-col v-if="customer != null" align="end">
+        <h3 class="font-weight-medium" style="line-height: 1">{{customer.name}}<v-icon small>arrow_drop_down</v-icon></h3>
+        <div class="caption font-weight-light">{{$t('dashboard.dataUpdated', [$moment(customer.updated).format("LLL")])}}</div>
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-container fluid>
+        <v-row>
+          <v-col cols="12" sm="6" lg="3" style="min-height: 164px">
+            <dashBoardPanel icon="description" :title="$t('dashboard.pagesUsed')" to="/usage" moreIcon="info"/>     
+          </v-col>
+          <v-col cols="12" sm="6" lg="3" style="min-height: 164px">
+            <dashBoardPanel icon="watch_later" :title="$t('dashboard.supportHoursUsed')" to="/support" moreIcon="info"/>     
+          </v-col>
+          <v-col cols="12" sm="6" lg="3" style="min-height: 164px">
+            <dashBoardPanel icon="bookmark" :title="$t('dashboard.zendeskTicketsUsed')" to="/zendesk" moreIcon="info"/>     
+          </v-col>
+          <v-col cols="12" sm="6" lg="3" style="min-height: 164px">
+            <dashBoardPanel icon="person" :title="$t('dashboard.usersAllocated')" to="/users" moreIcon="info"/>     
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col cols="12" lg="7" style="min-height: 400px">
+            <dashBoardPanel icon="trending_up" :title="$t('dashboard.pagesRemainingVsUsed')" moreIcon="more_horiz">
+              <template>
+                <usageChart/>
+              </template>
+            </dashBoardPanel>     
+          </v-col>
+          <v-col cols="12" lg="5" style="min-height: 400px">
+            <dashBoardPanel icon="watch_later" :title="$t('dashboard.supportEntries')" to="/support" moreIcon="more_horiz">     
+              <template>
+                
+              </template>
+            </dashBoardPanel>
+          </v-col>
+        </v-row>
+      </v-container>      
+    </v-row>
   </v-container>
 </template>
 
 <script>
+import dashBoardPanel from '~/components/dashBoardPanel.vue';
+import usageChart from '~/components/usageChart.vue';
 
 export default {
   data() {
-    return {
-
-      container: {
-        rows: [
-          {
-            height: '40vh',
-            cols: [
-              {title: this.$t('dashboard.graph1'), icon: 'trending_up', to: '/usage'}, 
-              {title: this.$t('dashboard.graph2'), icon: 'trending_up', to: '/usage'}, 
-              {title: this.$t('dashboard.graph3'), icon: 'trending_up', to: '/usage'}, 
-            ]
-          },
-          {
-            height: null,
-            cols: [
-              {title: this.$t('dashboard.pageCount'), icon: 'layers', to: '/usage'}, 
-              {title: this.$t('menu.users'), icon: 'group', to: '/users'}, 
-              {title: this.$t('menu.downloads'), icon: 'get_app', to: '/downloads'}, 
-              {title: this.$t('dashboard.maintenance'), icon: 'build', to: '/licenses'}, 
-            ]
-          },
-          {
-            height: '40vh',
-            cols: [
-              {title: this.$t('menu.contracts'), icon: 'description', to: '/contracts'}, 
-              {title: this.$t('menu.licenses'), icon: 'mdi-key-variant', to: '/licenses'}, 
-            ]
-          }
-        ]
-      }
+    return {                  
     }
   },
   components: {
+    dashBoardPanel,
+    usageChart
+  },
+  computed: {
+    installation: function(){
+      return {title: "Typefi Server 8 - Production", expires: new Date()};//TODO
+    },
+    customer: function(){
+      return {name: "Omni Consumer Products", updated: new Date()};//TODO
+    },    
+  },
+  methods: {
+
   }
 }
 </script>

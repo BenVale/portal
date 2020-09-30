@@ -39,6 +39,7 @@ export default {
   */
   plugins: [
     { src: '~/plugins/moment.js' },
+    { src: '~/plugins/apexchart.js', ssr: false },
   ],
   /*
   ** Auto import components
@@ -58,7 +59,8 @@ export default {
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     'nuxt-i18n',   
-    '@nuxtjs/auth' 
+    '@nuxtjs/auth',
+    '@nuxtjs/pwa',
   ],
   serverMiddleware: [
     { path: '/api', handler: '~/api/index.js' },
@@ -111,10 +113,12 @@ export default {
       },
       themes: {
         light: {
-          background: '#EFF0F5',
+          background: '#F5F6F8',
+          primary: '#F57C00',
+          text: '#48575E',
         },
         dark: {
-          primary: colors.blue.darken2,
+          primary: '#F57C00',
           accent: colors.grey.darken3,
           secondary: colors.amber.darken3,
           info: colors.teal.lighten1,

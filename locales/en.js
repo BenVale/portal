@@ -7,6 +7,9 @@ export default {
     licenses: 'Licenses',
     contracts: 'Contracts',
     downloads: 'Downloads',
+    support: 'Support',
+    zendesk: 'Zendesk',
+    installations: 'Installations',
     collapse: 'Collapse',
     logout: 'Logout'
   },
@@ -16,6 +19,14 @@ export default {
     graph2: 'Graph 2',
     graph3: 'Graph 3',
     maintenance: 'Maintenance',
+    licenseExpires: 'License expires {0}',
+    dataUpdated: 'Data updated {0}',
+    pagesUsed: 'Pages used',
+    supportHoursUsed: 'Support hours used',
+    zendeskTicketsUsed: 'Zendesk tickets used',
+    usersAllocated: 'Users allocated',
+    pagesRemainingVsUsed: 'Pages remaining vs used',
+    supportEntries: 'Support entries'
   },
   action: {
     search: 'Search',
@@ -53,5 +64,19 @@ export default {
     link: 'Home',
     other: 'An error occurred',    
   },
+  usage: {
+    pagesUsed: 'Pages used',
+    pagesRemaining: 'Pages remaining',
+    oneMonth: '1 month',
+    oneMonthShort: '1M',
+    sixMonths: '6 months',
+    sixMonthsShort: '6M',
+    oneYear: '1 year',
+    oneYearShort: '1Y',
+    yearToDate: 'Year to date',
+    yearToDateShort: 'YTD',
+    all: 'All',
+    allShort: 'ALL'
+  }
   
 }
