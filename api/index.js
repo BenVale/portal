@@ -13,7 +13,7 @@ app.use(bodyParser.json());
 
 // Import API Routes
 app.use('/auth', require('./routes/auth'));
-app.use('/db', require('./routes/db'));
+// app.use('/db', require('./routes/db'));
 
 // // Error handler
 app.use((err, req, res, next) => {

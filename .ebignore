@@ -1,0 +1,7 @@
+# git history
+.git/
+.vscode
+
+# npm
+node_modules
+
