@@ -93,3 +93,6 @@ sw.*
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
+
+
+ldaps.crt

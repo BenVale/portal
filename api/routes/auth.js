@@ -4,6 +4,8 @@ const jsonwebtoken = require('jsonwebtoken');
 const jwt = require('express-jwt');
 const LdapAuth = require('ldapauth-fork');
 require('dotenv').config();
+var createError = require('http-errors');
+const fs = require('fs');
 
 router.use(
   jwt({
@@ -17,31 +19,48 @@ router.use(
 router.post('/login', async (req, res, next) => {
   var { username, password } = req.body;
 
-  // Ldap settings
-  const auth = new LdapAuth({
-    url: process.env.LDAP_URL,
-    bindDN: process.env.LDAP_BIND_DN,
-    bindCredentials: process.env.LDAP_BIND_CREDENTIALS,
-    searchBase: process.env.LDAP_SEARCH_BASE,
-    searchFilter: process.env.LDAP_SEARCH_FILTER,
-    reconnect: false,
-  });
-  auth.on('error', function (err) {  
-    if(err.toString().includes('ECONNRESET')){
-      console.warn('LDAP connection disconnected, reconnecting now');
-    } else {
-      console.error('LDAP: ', err);
-    }
-  });
+  try {  
+    // Ldap settings
+    var user = await new Promise((resolve, reject) => {
 
-  // Authenticate using LDAP
-  var user = null;
-  try {
-    user = await new Promise((resolve, reject) => auth.authenticate(username, password, (err, user) => err != null ? reject(err) : resolve(user)));
-    auth.close();
+      var tlsOptions = {
+        ca: [fs.readFileSync('./ldaps.crt', 'utf8')],
+        checkServerIdentity: () => { return null; },
+        rejectUnauthorized: false
+      };
+
+      const auth = new LdapAuth({
+        url: process.env.LDAP_URL,
+        bindDN: process.env.LDAP_BIND_DN,
+        bindCredentials: process.env.LDAP_BIND_CREDENTIALS,
+        searchBase: process.env.LDAP_SEARCH_BASE,
+        searchFilter: process.env.LDAP_SEARCH_FILTER,
+        reconnect: false,
+        connectTimeout: 10 * 1000,
+        tlsOptions
+      });
+      auth.on('error', (err) => {  
+        auth.close();
+        if(err.toString().includes('ECONNRESET')){
+          console.warn('LDAP connection disconnected, reconnecting now');
+        } else {
+          console.error('LDAP: ', err);      
+        }
+        reject(createError(500, 'INTERNAL'));
+      });    
+
+      auth.authenticate(username, password, (err, user) => {
+        auth.close();
+        if(err){
+          console.log(err);
+          reject(createError(401, 'USER_NOT_FOUND'));
+          return;
+        }
+        resolve(user);
+      });
+    });   
   } catch(err){
-    auth.close();
-    res.status(401).send(err);
+    res.status(err.status ? err.status : 500).send(err.message);
     return;
   }
 
