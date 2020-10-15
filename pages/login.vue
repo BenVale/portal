@@ -47,7 +47,9 @@ export default {
       this.loading = true;
       try {
         var response = await this.$auth.loginWith('local', { data: {username: this.username, password: this.password} })
-        this.$router.push('/');
+        location.href = '/';
+        // this.$router.push('/');
+        
       } catch (err) {
         if(err.response != null){
           console.log(err.response.data);

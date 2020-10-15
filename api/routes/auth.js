@@ -56,7 +56,7 @@ router.post('/login', async (req, res, next) => {
           reject(createError(401, 'USER_NOT_FOUND'));
           return;
         }
-        resolve({name: user.name});
+        resolve({name: user.name, email: user.mail});
       });
     });   
   } catch(err){

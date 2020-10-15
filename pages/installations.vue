@@ -29,6 +29,7 @@ export default {
   fetch: async function(){
     await this.$store.dispatch('license/load');
   },
+  fetchOnServer: true,
   computed: {
     items: function(){
       return this.$store.state.license.items;

@@ -13,7 +13,9 @@
       </v-btn-toggle>                    
     </div>  
     <div id="chart-timeline">
-      <apexchart type="area" width="100%" height="300" ref="chart" :options="chartOptions" :series="chartSeries"></apexchart>
+      <client-only>
+        <apexchart type="area" width="100%" height="300" ref="chart" :options="chartOptions" :series="chartSeries"></apexchart>
+      </client-only>
     </div>
   </div>              
 </template>

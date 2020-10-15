@@ -6,7 +6,7 @@
       </v-list-item-avatar>
       <v-toolbar-items class="d-flex align-center">
         <v-tabs background-color="transparent" optional hide-slider>         
-          <v-tab v-for="(item, idx) in items" :key="idx" :to="item.to" class="px-2">
+          <v-tab v-for="(item, idx) in items" :key="idx" :to="item.to" nuxt class="px-2">
             <v-badge color="red" dot :value="item.notifications != null">
               <v-icon class="d-md-none">{{item.icon}}</v-icon>
               <div class="d-none d-md-block">{{item.title}}</div>

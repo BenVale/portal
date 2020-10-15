@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid class="pa-0 px-4">
+  <v-container fluid class="pa-0 px-4">    
     <v-row no-gutters style="color: var(--v-text-base)">
       <v-col v-if="installation != null">
         <h3 class="font-weight-medium" style="line-height: 1">{{installation.title}}<v-icon small>arrow_drop_down</v-icon></h3>        
@@ -44,6 +44,14 @@
         </v-row>
       </v-container>      
     </v-row>
+    <v-row>
+      <div>{{installations}}</div>
+      <div>{{customers}}</div>
+      <div>{{telemetry}}</div>
+      <div>{{users}}</div>
+      <div>{{support}}</div>
+      <div>{{tickets}}</div>
+    </v-row>
   </v-container>
 </template>
 
@@ -66,6 +74,24 @@ export default {
     },
     customer: function(){
       return {name: "Omni Consumer Products", updated: new Date()};//TODO
+    },    
+    installations: function(){
+      return this.$store.state.installations;
+    },
+    customers: function(){
+      return this.$store.state.customers;
+    },
+    telemetry: function(){
+      return this.$store.state.telemetry;
+    },
+    users: function(){
+      return this.$store.state.users;
+    },
+    support: function(){
+      return this.$store.state.support;
+    },
+    tickets: function(){
+      return this.$store.state.tickets;
     },    
   },
   methods: {
